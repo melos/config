@@ -299,7 +299,6 @@ setopt ignore_eof
 ## 「/」も単語区切りとみなす。
 WORDCHARS=${WORDCHARS:s,/,,}
 ## 「|」も単語区切りとみなす。
-## 2011-09-19
 WORDCHARS="${WORDCHARS}|"
 
 
@@ -353,17 +352,6 @@ case $(uname) in
 	;;
 esac
 
-## Emacsのショートカット。
-### 2011-11-06
-alias e="emacs &"
-### -nw: ターミナル内でEmacsを起動する。
-### 2011-11-06
-alias enw="emacs -nw"
-
-## exitのショートカット。
-### 2011-11-06
-alias x="exit"
-
 ## カスタムaliasの設定
 ### ~/.zsh.d/zshalias → ~/.zshaliasの順に探して
 ### 最初に見つかったファイルを読み込む。
@@ -373,13 +361,12 @@ alias x="exit"
 ###               globがマッチしなかったり存在しないパスを無視する。
 ###            -: シンボリックリンク先のパスを評価。
 ###            .: 通常のファイルのみ残す。
-### 2011-11-06
-alais_files=(~/.zsh.d/zshalias(N-.)
-             ~/.zshalias(N-.))
-for alias_file in ${alias_files}; do
-    source "${alias_file}"
-    break
-done
+#alais_files=(~/.zsh.d/zshalias(N-.)
+#             ~/.zshalias(N-.))
+#for alias_file in ${alias_files}; do
+#    source "${alias_file}"
+#    break
+#done
 
 # ウィンドウタイトル
 ## 実行中のコマンドとユーザ名とホスト名とカレントディレクトリを表示。
