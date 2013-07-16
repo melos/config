@@ -408,12 +408,13 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 "補完
 Bundle 'neocomplcache'
+Bundle 'neosnippet'
 "vim内でコンパイルして実行
 Bundle 'thinca/vim-quickrun'
 Bundle 'unite.vim'
 Bundle 'Indent-Guides'
 Bundle 'tComment'
-Bundle 'rails.vi'
+"Bundle 'rails.vi'
 Bundle 'taglist.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'smartchr'
