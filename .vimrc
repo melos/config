@@ -185,7 +185,7 @@ if version >= 703
   "set relativenumber
 endif
 "行の折り返し表示をしない
-:set nowrap
+set nowrap
 "括弧の対応表示時間
 set showmatch matchtime=1
 "タブを設定
@@ -194,6 +194,8 @@ set ts=2 sw=2 sts=2
 set shiftwidth=2
 "自動的にインデントする
 set autoindent
+"タブ入力を半角スペースに変換する
+set expandtab
 "Cインデントの設定
 set cinoptions+=:0
 "タイトルを表示
