@@ -161,7 +161,7 @@ set incsearch
 "検索文字の強調表示
 set hlsearch
 "w,bの移動で認識する文字
-"set iskeyword=a-z,A-Z,48-57,_,.,-,>
+set iskeyword=a-z,A-Z,48-57,_,.,-,>
 "vimgrep をデフォルトのgrepとする場合internal
 "set grepprg=internal
 
@@ -440,16 +440,16 @@ let g:neocomplcache_max_list = 5
 let g:neocomplcache_min_syntax_length = 3
 " _(アンダースコア)区切りの補完を有効化
 let g:neocomplcache_enable_underbar_completion = 1
-"let g:neocomplcache_enable_camel_case_completion  =  1
+let g:neocomplcache_enable_camel_case_completion  =  1
 " 補完候補の選択を行う
 inoremap <expr><C-j> pumvisible() ? "\<Down>" : "\<TAB>"
 inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<S-TAB>"
-" 補完ウィンドウを閉じる
-inoremap <expr><CR> neocomplcache#smart_close_popup()."\<CR>"
 " 現在選択している候補を確定します
-inoremap <expr><C-h> neocomplcache#close_popup()
+inoremap <expr><C-l> neocomplcache#close_popup()
+" 改行で補完ウィンドウを閉じる
+inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
 " 現在の補完をキャンセルして閉じる
-inoremap <expr><C-m> neocomplcache#cancel_popup()
+inoremap <expr><C-h> neocomplcache#cancel_popup()
 " 前回行われた補完をキャンセルし補完した文字を消す
 inoremap <expr><C-g> neocomplcache#undo_completion()
 " 補完候補の中から、共通する部分を補完
