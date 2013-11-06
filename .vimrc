@@ -211,11 +211,6 @@ set display=lastline
 set list
 set listchars=tab:^\ ,trail:~
 
-" ハイライトを有効にする
-if &t_Co > 2 || has('gui_running')
-  syntax on
-endif
-
 "色テーマ設定
 "gvimの色テーマは.gvimrcで指定する
 colorscheme molokai
@@ -401,32 +396,34 @@ endif
 " 各種プラグイン設定
 "----------------------------------------
 "----------------------------------------
-" Bundle 設定
+" NeoBundle 設定
 "----------------------------------------
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand('~/.vim/bundle'))
+endif
+NeoBundle 'gmarik/vundle'
 "補完
-Bundle 'neocomplcache'
+NeoBundle 'neocomplcache'
 "スニペット
-Bundle 'neosnippet'
+NeoBundle 'neosnippet'
 "vim内でコンパイルして実行
-Bundle 'thinca/vim-quickrun'
-Bundle 'unite.vim'
-Bundle 'Indent-Guides'
-Bundle 'tComment'
-"Bundle 'rails.vi'
-Bundle 'taglist.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'smartchr'
-Bundle 'ZenCoding.vim'
-Bundle 'surround.vim'
-"Bundleのインストール
-nnoremap <silent> <Space>bi :<C-u>BundleInstall<CR>
-"Bundleのクリーン
-nnoremap <silent> <Space>bc :<C-u>BundleClean<CR>
-"Bundleのサーチ
-nnoremap <silent> <Space>bs :<C-u>BundleSearch<CR>
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'unite.vim'
+NeoBundle 'Indent-Guides'
+NeoBundle 'tComment'
+"NeoBundle 'rails.vi'
+NeoBundle 'taglist.vim'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'smartchr'
+NeoBundle 'ZenCoding.vim'
+NeoBundle 'surround.vim'
+"NeoBundleのインストール
+nnoremap <silent> <Space>bi :<C-u>NeoBundleInstall<CR>
+"NeoBundleのクリーン
+nnoremap <silent> <Space>bc :<C-u>NeoBundleClean<CR>
+"NeoBundleのサーチ
+nnoremap <silent> <Space>bs :<C-u>NeoBundleSearch<CR>
 "----------------------------------------
 " neocomplcache 設定
 "----------------------------------------
@@ -473,6 +470,10 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 "----------------------------------------
 "  設定
 "----------------------------------------
+" ハイライトを有効にする
+if &t_Co > 2 || has('gui_running')
+  syntax on
+endif
 "----------------------------------------
 " 一時設定
 "----------------------------------------
