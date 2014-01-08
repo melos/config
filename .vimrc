@@ -210,7 +210,11 @@ set display=lastline
 "Tab、行末の半角スペースを明示的に表示する
 set list
 set listchars=tab:^\ ,trail:~
-
+"カレント行のハイライト（色の反転）
+set cursorline
+set cursorcolumn
+highlight cursorline term=reverse cterm=reverse
+highlight cursorcolumn term=reverse cterm=reverse
 "色テーマ設定
 "gvimの色テーマは.gvimrcで指定する
 colorscheme molokai
@@ -424,7 +428,7 @@ nnoremap <silent> <Space>bc :<C-u>NeoBundleClean<CR>
 "NeoBundleのサーチ
 nnoremap <silent> <Space>bs :<C-u>NeoBundleSearch<CR>
 "----------------------------------------
-" neocomplcache 設定
+" neosnippet 設定
 "----------------------------------------
 " 起動時に有効化
 let g:neocomplcache_enable_at_startup=1
@@ -438,22 +442,20 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_enable_camel_case_completion  =  1
 " 補完候補の選択を行う
-inoremap <expr><C-j> pumvisible() ? "\<Down>" : "\<TAB>"
-inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<S-TAB>"
+inoremap <expr><C-j> pumvisible() ? "<C-p>" : ""
+inoremap <expr><C-k> pumvisible() ? "<C-n>" : ""
 " 現在選択している候補を確定します
-inoremap <expr><C-l> neocomplcache#close_popup()
-" 改行で補完ウィンドウを閉じる
-inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+inoremap <expr><C-l> pumvisible() ? neocomplcache#close_popup() : ""
+" 補完ウィンドウを閉じる
+inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup() : "\<BS>"
 " 現在の補完をキャンセルして閉じる
-inoremap <expr><C-h> neocomplcache#cancel_popup()
+inoremap <expr><C-h> pumvisible() ? neocomplcache#cancel_popup() : ""
 " 前回行われた補完をキャンセルし補完した文字を消す
 inoremap <expr><C-g> neocomplcache#undo_completion()
 " 補完候補の中から、共通する部分を補完
-inoremap <expr><C-n> neocomplcache#complete_common_string()
+inoremap <expr><Tab> pumvisible() ? neocomplcache#complete_common_string() : "\<Tab>"
 
-"----------------------------------------
-" neosnippet 設定
-"----------------------------------------
 imap <C-l> <Plug>(neosnippet_expand_or_jump)
 smap <C-l> <Plug>(neosnippet_expand_or_jump)
 xmap <C-l> <Plug>(neosnippet_expand_target)
