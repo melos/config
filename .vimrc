@@ -413,6 +413,7 @@ NeoBundle 'neosnippet'
 "vim内でコンパイルして実行
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'unite.vim'
+NeoBundle 'vimproc'
 NeoBundle 'Indent-Guides'
 NeoBundle 'tComment'
 "NeoBundle 'rails.vi'
@@ -442,8 +443,8 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_enable_camel_case_completion  =  1
 " 補完候補の選択を行う
-inoremap <expr><C-j> pumvisible() ? "<C-p>" : ""
-inoremap <expr><C-k> pumvisible() ? "<C-n>" : ""
+inoremap <expr><C-j> pumvisible() ? "<C-n>" : ""
+inoremap <expr><C-k> pumvisible() ? "<C-p>" : ""
 " 現在選択している候補を確定します
 inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 inoremap <expr><C-l> pumvisible() ? neocomplcache#close_popup() : ""
@@ -479,3 +480,4 @@ endif
 " 一時設定
 "----------------------------------------
 
+nmap <silent> <Leader>ef  :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
