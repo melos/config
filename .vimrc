@@ -449,7 +449,7 @@ inoremap <expr><C-k> pumvisible() ? "<C-p>" : ""
 inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 inoremap <expr><C-l> pumvisible() ? neocomplcache#close_popup() : ""
 " 補完ウィンドウを閉じる
-inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup() : "\<BS>"
+"inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup() : "\<BS>"
 " 現在の補完をキャンセルして閉じる
 inoremap <expr><C-h> pumvisible() ? neocomplcache#cancel_popup() : ""
 " 前回行われた補完をキャンセルし補完した文字を消す
