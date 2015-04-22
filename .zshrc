@@ -361,12 +361,11 @@ esac
 ###               globがマッチしなかったり存在しないパスを無視する。
 ###            -: シンボリックリンク先のパスを評価。
 ###            .: 通常のファイルのみ残す。
-#alais_files=(~/.zsh.d/zshalias(N-.)
-#             ~/.zshalias(N-.))
-#for alias_file in ${alias_files}; do
-#    source "${alias_file}"
-#    break
-#done
+alais_files=(~/.zshalias(N-.))
+for alias_file in ${alias_files}; do
+    source "${alias_file}"
+    break
+done
 
 # ウィンドウタイトル
 ## 実行中のコマンドとユーザ名とホスト名とカレントディレクトリを表示。

@@ -1,0 +1,2 @@
+alias gcc="gcc-4.9"
+alias clang="llvm-gcc"
