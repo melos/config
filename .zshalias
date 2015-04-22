@@ -1,2 +1,10 @@
-alias gcc="gcc-4.9"
-alias clang="llvm-gcc"
+case ${OSTYPE} in
+  darwin*)
+    #ここにMac向けの設定
+    alias gcc="gcc-4.9"
+    alias clang="llvm-gcc"
+    ;;
+  linux*)
+    #ここにLinux向けの設定
+    ;;
+esac
