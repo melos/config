@@ -185,21 +185,6 @@ if ! type vim > /dev/null 2>&1; then
     alias vim=vi
 fi
 
-# メールアドレスの設定
-## ~/.zsh.d/email → ~/.emailの順に探して最初に見つかったファイルから読み込む。
-## (N-.): 存在しないファイルは登録しない。
-##    パス(...): ...という条件にマッチするパスのみ残す。
-##            N: NULL_GLOBオプションを設定。
-##               globがマッチしなかったり存在しないパスを無視する。
-##            -: シンボリックリンク先のパスを評価。
-##            .: 通常のファイルのみ残す。
-email_files=(~/.zsh.d/email(N-.)
-             ~/.email(N-.))
-for email_file in ${email_files}; do
-    export EMAIL=$(cat "$email_file")
-    break
-done
-
 #rbenvのパス
 export PATH="$HOME/.rbenv/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
