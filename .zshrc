@@ -1,5 +1,8 @@
 # -*- sh -*-
 
+# emacsモードで使う
+bindkey -e
+
 # ディレクトリ移動
 ## ディレクトリ名だけでcdする。
 setopt auto_cd
@@ -298,70 +301,9 @@ WORDCHARS=${WORDCHARS:s,/,,}
 WORDCHARS="${WORDCHARS}|"
 
 
-# alias
-## ページャーを使いやすくする。
-### grep -r def *.rb L -> grep -r def *.rb |& lv
-alias -g L="|& $PAGER"
-## grepを使いやすくする。
-alias -g G='| grep'
-## 後はおまけ。
-alias -g H='| head'
-alias -g T='| tail'
-alias -g S='| sed'
+# カスタムaliasの設定
+source ~/.zshalias
 
-## 完全に削除。
-alias rr="command rm -rf"
-## ファイル操作を確認する。
-alias rm="rm -i"
-alias cp="cp -i"
-alias mv="mv -i"
-
-## pushd/popdのショートカット。
-alias pd="pushd"
-alias po="popd"
-
-## lsとpsの設定
-### ls: できるだけGNU lsを使う。
-### ps: 自分関連のプロセスのみ表示。
-case $(uname) in
-    *BSD|Darwin)
-	if [ -x "$(which gnuls)" ]; then
-	    alias ls="gnuls"
-	    alias la="ls -lhAF --color=auto"
-	else
-	    alias la="ls -lhAFG"
-	fi
-	alias ps="ps -fU$(whoami)"
-	;;
-    SunOS)
-	if [ -x "`which gls`" ]; then
-	    alias ls="gls"
-	    alias la="ls -lhAF --color=auto"
-	else
-	    alias la="ls -lhAF"
-	fi
-	alias ps="ps -fl -u$(/usr/xpg4/bin/id -un)"
-	;;
-    *)
-	alias la="ls -lhAF --color=auto"
-	alias ps="ps -fU$(whoami) --forest"
-	;;
-esac
-
-## カスタムaliasの設定
-### ~/.zsh.d/zshalias → ~/.zshaliasの順に探して
-### 最初に見つかったファイルを読み込む。
-### (N-.): 存在しないファイルは登録しない。
-###    パス(...): ...という条件にマッチするパスのみ残す。
-###            N: NULL_GLOBオプションを設定。
-###               globがマッチしなかったり存在しないパスを無視する。
-###            -: シンボリックリンク先のパスを評価。
-###            .: 通常のファイルのみ残す。
-alais_files=(~/.zshalias(N-.))
-for alias_file in ${alias_files}; do
-    source "${alias_file}"
-    break
-done
 
 # ウィンドウタイトル
 ## 実行中のコマンドとユーザ名とホスト名とカレントディレクトリを表示。

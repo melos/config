@@ -120,6 +120,8 @@ set noswapfile
 "set viminfo=
 "クリップボードを共有
 set clipboard+=unnamed
+"貼り付けた時に階段上にならなくする
+set pastetoggle=<C-E>
 "8進数を無効にする。<C-a>,<C-x>に影響する
 set nrformats-=octal
 "キーコードやマッピングされたキー列が完了するのを待つ時間(ミリ秒)
