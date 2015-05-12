@@ -48,3 +48,5 @@ case $(uname) in
 	;;
 esac
 
+## homebrewのctagsを使う
+alias ctags="/usr/local/bin/ctags"

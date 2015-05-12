@@ -406,30 +406,54 @@ endif
 "----------------------------------------
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle'))
+  call neobundle#begin(expand('~/.vim/bundle/'))
 endif
+"neobundle自体をneobundleで管理
+NeoBundleFetch 'Shougo/neobundle.vim'
+  "NeoBundleのインストール
+  nnoremap <silent> <Space>bi :<C-u>NeoBundleInstall<CR>
+  "NeoBundleのクリーン
+  nnoremap <silent> <Space>bc :<C-u>NeoBundleClean<CR>
+  "NeoBundleのサーチ
+  nnoremap <silent> <Space>bs :<C-u>NeoBundleSearch<CR>
+
 "補完
-NeoBundle 'neocomplcache'
-"スニペット
-NeoBundle 'neosnippet'
-"vim内でコンパイルして実行
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'unite.vim'
-NeoBundle 'vimproc'
-NeoBundle 'Indent-Guides'
-NeoBundle 'tComment'
-"NeoBundle 'rails.vi'
-NeoBundle 'taglist.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+"インデントに色を付けて表示
+NeoBundle 'nathanaelkane/vim-indent-guides'
+"ステータスラインを綺麗に
 NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'smartchr'
-NeoBundle 'ZenCoding.vim'
-NeoBundle 'surround.vim'
-"NeoBundleのインストール
-nnoremap <silent> <Space>bi :<C-u>NeoBundleInstall<CR>
-"NeoBundleのクリーン
-nnoremap <silent> <Space>bc :<C-u>NeoBundleClean<CR>
-"NeoBundleのサーチ
-nnoremap <silent> <Space>bs :<C-u>NeoBundleSearch<CR>
+"括弧などで文字を囲うのを便利に
+NeoBundle 'tpope/vim-surround'
+"IDEっぽくする
+NeoBundle 'szw/vim-tags'
+NeoBundle 'vim-scripts/taglist.vim'
+  "set tags = tags
+  "ctagsのコマンド
+  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+  "現在表示中のファイルのみのタグしか表示しない
+  let Tlist_Show_One_File = 1
+  "右側にtag listのウィンドウを表示する
+  let Tlist_Use_Right_Window = 1
+  "taglistのウインドウだけならVimを閉じる
+  let Tlist_Exit_OnlyWindow = 1
+  "\lでtaglistウインドウを開いたり閉じたり出来るショートカット
+  map <silent> <leader>l :TlistToggle<CR>
+"キーを押す回数で挿入文字が変わる
+NeoBundle 'kana/vim-smartchr'
+  inoremap <buffer> <expr> <S-=> smartchr#loop(' + ', '+')
+  inoremap <buffer> <expr> - smartchr#loop(' - ', '-')
+  inoremap <buffer> <expr> , smartchr#loop(', ', ',')
+  inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
+"vimを開きながらディレクトリをツリー表示
+NeoBundle 'scrooloose/nerdtree'
+  nnoremap <silent><C-q> :NERDTreeToggle<CR>
+call neobundle#end()
+"未インストールのプラグインがある場合、インストールするかどうかを尋ねる
+"NeoBundleCheck
+
 "----------------------------------------
 " neosnippet 設定
 "----------------------------------------
