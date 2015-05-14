@@ -301,10 +301,14 @@ nnoremap l <Right>
 if has('folding')
   nnoremap <expr> l foldlevel(line('.')) ? "\<Right>zo" : "\<Right>"
 endif
+"emacs の follow mode もどき
+nnoremap <silent> <Leader>ef  :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
 
 "----------------------------------------
 " 挿入モード
 "----------------------------------------
+"jjでESC
+inoremap <silent> jj <ESC>
 
 "----------------------------------------
 " ビジュアルモード
@@ -419,10 +423,52 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 "補完
 NeoBundle 'Shougo/neocomplcache'
+  "起動時に有効化
+  let g:neocomplcache_enable_at_startup=1
+  "ポップアップメニューで表示される候補の最大数
+  let g:neocomplcache_max_list = 10
+  "シンタックスをキャッシュするときの最小文字長
+  let g:neocomplcache_min_syntax_length = 3
+  "大文字が入力されるまで大文字小文字の区別を無視する
+  let g:neocomplcache_enable_smart_case = 1
+  "ファイルやスクリプトの名前の補完
+  let g:neocomplcache_enable_auto_delimiter = 1
+  "大文字補完の有効化。例えばArgumentsExceptionならAE。
+  let g:neocomplcache_enable_camel_case_completion = 1
+  "アンダーバー補完の有効化。例えばpublic_htmlならp_h。
+  let g:neocomplcache_enable_underbar_completion = 1
+  "現在選択している候補を確定します
+  inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+  "補完候補を閉じる
+  inoremap <expr><C-h> pumvisible() ? neocomplcache#smart_close_popup() : "\<C-h>"
+  inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup() : "\<C-h>"
+  "現在の補完をキャンセルして閉じる
+  inoremap <expr><C-e> pumvisible() ? neocomplcache#cancel_popup() : ""
+  "前回行われた補完をキャンセルし補完した文字を消す
+  inoremap <expr><C-g> neocomplcache#undo_completion()
+  "補完候補の中から、共通する部分を補完
+  inoremap <expr><C-l> pumvisible() ? neocomplcache#complete_common_string() : "\<Tab>"
 NeoBundle 'Shougo/neosnippet'
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
 NeoBundle 'Shougo/neosnippet-snippets'
+  "スニペット作成
+  noremap <silent> ns :NeoComplCacheEditSnippets<CR>
+  "スニペットを保存するディレクトリ
+  let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 "インデントに色を付けて表示
 NeoBundle 'nathanaelkane/vim-indent-guides'
+  "色を指定する
+  let g:indent_guides_auto_colors = 0
+  autocmd VimEnter, Colorscheme * :hi IndentGuidesOdd   guibg = red   ctermbg = 3
+  autocmd VimEnter, Colorscheme * :hi IndentGuidesEven  guibg = green ctermbg = 4
+  "起動時に有効
+  let g:indent_guides_enable_on_vim_startup = 1
+  "表示幅
+  let g:indent_guides_guide_size = 2
+  "使用しないファイルタイプ
+  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 "ステータスラインを綺麗に
 NeoBundle 'Lokaltog/vim-powerline'
 "括弧などで文字を囲うのを便利に
@@ -454,56 +500,5 @@ call neobundle#end()
 "未インストールのプラグインがある場合、インストールするかどうかを尋ねる
 "NeoBundleCheck
 
-"----------------------------------------
-" neosnippet 設定
-"----------------------------------------
-" 起動時に有効化
-let g:neocomplcache_enable_at_startup=1
-" 大文字が入力されるまで大文字小文字の区別を無視する
-let g:complcache_enable_smart_case = 1
-" ポップアップメニューで表示される候補の数
-let g:neocomplcache_max_list = 5
-" シンタックスをキャッシュするときの最小文字長
-let g:neocomplcache_min_syntax_length = 3
-" _(アンダースコア)区切りの補完を有効化
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_enable_camel_case_completion  =  1
-" 補完候補の選択を行う
-inoremap <expr><C-j> pumvisible() ? "<C-n>" : ""
-inoremap <expr><C-k> pumvisible() ? "<C-p>" : ""
-" 現在選択している候補を確定します
-inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-inoremap <expr><C-l> pumvisible() ? neocomplcache#close_popup() : ""
-" 補完ウィンドウを閉じる
-"inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup() : "\<BS>"
-" 現在の補完をキャンセルして閉じる
-inoremap <expr><C-h> pumvisible() ? neocomplcache#cancel_popup() : ""
-" 前回行われた補完をキャンセルし補完した文字を消す
-inoremap <expr><C-g> neocomplcache#undo_completion()
-" 補完候補の中から、共通する部分を補完
-inoremap <expr><Tab> pumvisible() ? neocomplcache#complete_common_string() : "\<Tab>"
-
-imap <C-l> <Plug>(neosnippet_expand_or_jump)
-smap <C-l> <Plug>(neosnippet_expand_or_jump)
-xmap <C-l> <Plug>(neosnippet_expand_target)
-
-"----------------------------------------
-" 自作 snippet 設定
-"----------------------------------------
-" スニペット作成
-noremap <silent> ns :NeoComplCacheEditSnippets<CR>
-" スニペットを保存するディレクトリ
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-"----------------------------------------
-"  設定
-"----------------------------------------
-" ハイライトを有効にする
-if &t_Co > 2 || has('gui_running')
-  syntax on
-endif
-"----------------------------------------
-" 一時設定
-"----------------------------------------
-"emacs の follow mode もどき
-nmap <silent> <Leader>ef  :vsplit<bar>wincmd l<bar>exe "norm! Ljz<c-v><cr>"<cr>:set scb<cr>:wincmd h<cr>:set scb<cr>
+"シンタックスハイライト
+syntax on
