@@ -1,6 +1,9 @@
 set nocompatible
 filetype off
 
+"OSの種類をOSTYPEに格納（OS別の設定に使用）
+let OSTYPE  =  system('uname')
+
 "改行コードは set fileformat=unix に設定するとunixでも使えます。
 
 "Windowsで内部エンコーディングを cp932以外にしていて、
@@ -479,7 +482,11 @@ NeoBundle 'szw/vim-tags'
 NeoBundle 'vim-scripts/taglist.vim'
   "set tags = tags
   "ctagsのコマンド
-  let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+  if OSTYPE == "Darwin\n"
+    let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+  elseif OSTYPE == "Linux\n"
+    let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+  endif
   "現在表示中のファイルのみのタグしか表示しない
   let Tlist_Show_One_File = 1
   "右側にtag listのウィンドウを表示する
