@@ -465,7 +465,7 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
   "起動時に有効
   let g:indent_guides_enable_on_vim_startup = 1
   "表示幅
-  let g:indent_guides_guide_size = 2
+  let g:indent_guides_guide_size = 1
   "使用しないファイルタイプ
   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 "ステータスラインを綺麗に
