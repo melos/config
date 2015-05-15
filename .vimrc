@@ -182,10 +182,10 @@ set visualbell t_vb=
 set shellslash
 "行番号表示
 set number
-if version >= 703
+"if version >= 703
   "相対行番号表示(7.3)
   "set relativenumber
-endif
+"endif
 "行の折り返し表示をしない
 set nowrap
 "括弧の対応表示時間
@@ -218,7 +218,6 @@ set cursorcolumn
 highlight cursorline term=reverse cterm=reverse
 highlight cursorcolumn term=reverse cterm=reverse
 "色テーマ設定
-"gvimの色テーマは.gvimrcで指定する
 colorscheme molokai
 "２５６色モードにする
 set t_Co=256
@@ -460,9 +459,9 @@ NeoBundle 'Shougo/neosnippet-snippets'
 "インデントに色を付けて表示
 NeoBundle 'nathanaelkane/vim-indent-guides'
   "色を指定する
-  let g:indent_guides_auto_colors = 0
-  autocmd VimEnter, Colorscheme * :hi IndentGuidesOdd   guibg = red   ctermbg = 3
-  autocmd VimEnter, Colorscheme * :hi IndentGuidesEven  guibg = green ctermbg = 4
+  "let g:indent_guides_auto_colors = 0
+  "autocmd VimEnter, Colorscheme * :hi IndentGuidesOdd   guibg = red   ctermbg = 3
+  "autocmd VimEnter, Colorscheme * :hi IndentGuidesEven  guibg = green ctermbg = 4
   "起動時に有効
   let g:indent_guides_enable_on_vim_startup = 1
   "表示幅
@@ -471,6 +470,8 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 "ステータスラインを綺麗に
 NeoBundle 'Lokaltog/vim-powerline'
+"自動で括弧などを閉じる
+NeoBundle 'Townk/vim-autoclose'
 "括弧などで文字を囲うのを便利に
 NeoBundle 'tpope/vim-surround'
 "IDEっぽくする
