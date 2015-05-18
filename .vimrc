@@ -124,7 +124,8 @@ set noswapfile
 "クリップボードを共有
 set clipboard+=unnamed
 "貼り付けた時に階段上にならなくする
-set pastetoggle=<C-E>
+imap <F11> <nop>
+set pastetoggle=<F11>
 "8進数を無効にする。<C-a>,<C-x>に影響する
 set nrformats-=octal
 "キーコードやマッピングされたキー列が完了するのを待つ時間(ミリ秒)
@@ -418,10 +419,10 @@ endif
 NeoBundleFetch 'Shougo/neobundle.vim'
   "NeoBundleのインストール
   nnoremap <silent> <Space>bi :<C-u>NeoBundleInstall<CR>
+  "NeoBundleのアップデート
+  nnoremap <silent> <Space>bu :<C-u>NeoBundleUpdate<CR
   "NeoBundleのクリーン
   nnoremap <silent> <Space>bc :<C-u>NeoBundleClean<CR>
-  "NeoBundleのサーチ
-  nnoremap <silent> <Space>bs :<C-u>NeoBundleSearch<CR>
 
 "補完
 NeoBundle 'Shougo/neocomplcache'
@@ -478,21 +479,21 @@ NeoBundle 'Townk/vim-autoclose'
 "括弧などで文字を囲うのを便利に
 NeoBundle 'tpope/vim-surround'
 "IDEっぽくする
-NeoBundle "Shougo/vimproc",  {
+NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
-\     'windows' : 'tools\\update - dll - mingw', 
-\     'cygwin' : 'make  - f make_cygwin.mak', 
-\     'mac' : 'make  - f make_mac.mak', 
-\     'linux' : 'make', 
-\     'unix' : 'gmake', 
-\    }, 
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
 \ }
 NeoBundle 'Shougo/unite.vim'
   "The prefix key.
   nnoremap    [unite]   <Nop>
   nmap    <Space>u [unite]
   "unite.vim keymap
-  let g:unite_source_history_yank_enable =1
+  let g:unite_source_history_yank_enable = 1
   nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
   nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
   nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
@@ -503,12 +504,7 @@ NeoBundle 'Shougo/unite.vim'
   nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
   nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> ,vr :UniteResume<CR>
-  "vinarise
-  let g:vinarise_enable_auto_detect = 1
-  "unite-build map
-  nnoremap <silent> ,vb :Unite build<CR>
-  nnoremap <silent> ,vcb :Unite build:!<CR>
-  nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
+  "grepの代わりにagを使う
   if OSTYPE == "Darwin\n"
     let g:unite_source_grep_command = 'ag'
   endif
