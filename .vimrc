@@ -504,6 +504,8 @@ NeoBundle 'Shougo/unite.vim'
   nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
   nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
   nnoremap <silent> ,vr :UniteResume<CR>
+  "インサートモードで開始する
+  let g:unite_enable_start_insert = 1
   "grepの代わりにagを使う
   if OSTYPE == "Darwin\n"
     let g:unite_source_grep_command = 'ag'
@@ -540,7 +542,7 @@ NeoBundle 'kana/vim-smartchr'
 "vimを開きながらディレクトリをツリー表示
 NeoBundle 'scrooloose/nerdtree'
   let NERDTreeShowHidden  =  1
-  nnoremap <silent> <leader>nt :NERDTreeToggle<CR>
+  nnoremap <silent> <C-e> :NERDTreeToggle<CR>
 call neobundle#end()
 "未インストールのプラグインがある場合、インストールするかどうかを尋ねる
 "NeoBundleCheck
