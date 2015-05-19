@@ -488,33 +488,35 @@ NeoBundle 'Shougo/vimproc.vim', {
 \     'unix' : 'gmake',
 \    },
 \ }
-NeoBundle 'Shougo/unite.vim'
-  "The prefix key.
-  nnoremap    [unite]   <Nop>
-  nmap    <Space>u [unite]
-  "unite.vim keymap
-  let g:unite_source_history_yank_enable = 1
-  nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
-  nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
-  nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
-  nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
-  nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
-  nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
-  nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-  nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  nnoremap <silent> ,vr :UniteResume<CR>
-  "インサートモードで開始する
-  let g:unite_enable_start_insert = 1
-  "grepの代わりにagを使う
-  if OSTYPE == "Darwin\n"
-    let g:unite_source_grep_command = 'ag'
-  endif
-  let g:unite_source_grep_default_opts = '--nocolor --nogroup'
-  let g:unite_source_grep_max_candidates = 200
-  let g:unite_source_grep_recursive_opt = ''
-  " unite-grepの便利キーマップ
-  vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+if version >= 703
+  NeoBundle 'Shougo/unite.vim'
+    "The prefix key.
+    nnoremap    [unite]   <Nop>
+    nmap    <Space>u [unite]
+    "unite.vim keymap
+    let g:unite_source_history_yank_enable = 1
+    nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
+    nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+    nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
+    nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+    nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+    nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
+    nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+    nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap <silent> ,vr :UniteResume<CR>
+    "インサートモードで開始する
+    let g:unite_enable_start_insert = 1
+    "grepの代わりにagを使う
+    if OSTYPE == "Darwin\n"
+      let g:unite_source_grep_command = 'ag'
+    endif
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+    let g:unite_source_grep_max_candidates = 200
+    let g:unite_source_grep_recursive_opt = ''
+    " unite-grepの便利キーマップ
+    vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+endif
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'szw/vim-tags'
 NeoBundle 'vim-scripts/taglist.vim'
