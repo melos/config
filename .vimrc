@@ -1,9 +1,3 @@
-set nocompatible
-filetype off
-
-"OSの種類をOSTYPEに格納（OS別の設定に使用）
-let OSTYPE  =  system('uname')
-
 "改行コードは set fileformat=unix に設定するとunixでも使えます。
 
 "Windowsで内部エンコーディングを cp932以外にしていて、
@@ -222,7 +216,7 @@ set cursorcolumn
 highlight cursorline term=reverse cterm=reverse
 highlight cursorcolumn term=reverse cterm=reverse
 "色テーマ設定
-colorscheme molokai
+colorscheme monokai
 "２５６色モードにする
 set t_Co=256
 
@@ -409,145 +403,41 @@ endif
 " 各種プラグイン設定
 "----------------------------------------
 "----------------------------------------
-" NeoBundle 設定
+" dein 設定
 "----------------------------------------
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#begin(expand('~/.vim/bundle/'))
+if &compatible
+  set nocompatible
 endif
-"neobundle自体をneobundleで管理
-NeoBundleFetch 'Shougo/neobundle.vim'
-  "NeoBundleのインストール
-  nnoremap <silent> <Space>bi :<C-u>NeoBundleInstall<CR>
-  "NeoBundleのアップデート
-  nnoremap <silent> <Space>bu :<C-u>NeoBundleUpdate<CR
-  "NeoBundleのクリーン
-  nnoremap <silent> <Space>bc :<C-u>NeoBundleClean<CR>
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-"補完
-NeoBundle 'Shougo/neocomplcache'
-  "起動時に有効化
-  let g:neocomplcache_enable_at_startup=1
-  "ポップアップメニューで表示される候補の最大数
-  let g:neocomplcache_max_list = 10
-  "シンタックスをキャッシュするときの最小文字長
-  let g:neocomplcache_min_syntax_length = 3
-  "大文字が入力されるまで大文字小文字の区別を無視する
-  let g:neocomplcache_enable_smart_case = 1
-  "ファイルやスクリプトの名前の補完
-  let g:neocomplcache_enable_auto_delimiter = 1
-  "大文字補完の有効化。例えばArgumentsExceptionならAE。
-  let g:neocomplcache_enable_camel_case_completion = 1
-  "アンダーバー補完の有効化。例えばpublic_htmlならp_h。
-  let g:neocomplcache_enable_underbar_completion = 1
-  "現在選択している候補を確定します
-  inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-  "補完候補を閉じる
-  inoremap <expr><C-h> pumvisible() ? neocomplcache#smart_close_popup() : "\<C-h>"
-  inoremap <expr><BS> pumvisible() ? neocomplcache#smart_close_popup() : "\<C-h>"
-  "現在の補完をキャンセルして閉じる
-  inoremap <expr><C-e> pumvisible() ? neocomplcache#cancel_popup() : ""
-  "前回行われた補完をキャンセルし補完した文字を消す
-  inoremap <expr><C-g> neocomplcache#undo_completion()
-  "補完候補の中から、共通する部分を補完
-  inoremap <expr><C-l> pumvisible() ? neocomplcache#complete_common_string() : "\<Tab>"
-NeoBundle 'Shougo/neosnippet'
-  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
-NeoBundle 'Shougo/neosnippet-snippets'
-  "スニペット作成
-  noremap <silent> ns :NeoComplCacheEditSnippets<CR>
-  "スニペットを保存するディレクトリ
-  let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-"インデントに色を付けて表示
-NeoBundle 'nathanaelkane/vim-indent-guides'
-  "色を指定する
-  "let g:indent_guides_auto_colors = 0
-  "autocmd VimEnter, Colorscheme * :hi IndentGuidesOdd   guibg = red   ctermbg = 3
-  "autocmd VimEnter, Colorscheme * :hi IndentGuidesEven  guibg = green ctermbg = 4
-  "起動時に有効
-  let g:indent_guides_enable_on_vim_startup = 1
-  "表示幅
-  let g:indent_guides_guide_size = 1
-  "使用しないファイルタイプ
-  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-"ステータスラインを綺麗に
-NeoBundle 'Lokaltog/vim-powerline'
-"自動で括弧などを閉じる
-NeoBundle 'Townk/vim-autoclose'
-"括弧などで文字を囲うのを便利に
-NeoBundle 'tpope/vim-surround'
-"IDEっぽくする
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-if version >= 703
-  NeoBundle 'Shougo/unite.vim'
-    "The prefix key.
-    nnoremap    [unite]   <Nop>
-    nmap    <Space>u [unite]
-    "unite.vim keymap
-    let g:unite_source_history_yank_enable = 1
-    nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
-    nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
-    nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
-    nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
-    nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
-    nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
-    nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
-    nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-    nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-    nnoremap <silent> ,vr :UniteResume<CR>
-    "インサートモードで開始する
-    let g:unite_enable_start_insert = 1
-    "grepの代わりにagを使う
-    if OSTYPE == "Darwin\n"
-      let g:unite_source_grep_command = 'ag'
-    endif
-    let g:unite_source_grep_default_opts = '--nocolor --nogroup'
-    let g:unite_source_grep_max_candidates = 200
-    let g:unite_source_grep_recursive_opt = ''
-    " unite-grepの便利キーマップ
-    vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-endif
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'szw/vim-tags'
-NeoBundle 'vim-scripts/taglist.vim'
-  "set tags = tags
-  "ctagsのコマンド
-  if OSTYPE == "Darwin\n"
-    let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-  elseif OSTYPE == "Linux\n"
-    let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
   endif
-  "現在表示中のファイルのみのタグしか表示しない
-  let Tlist_Show_One_File = 1
-  "右側にtag listのウィンドウを表示する
-  let Tlist_Use_Right_Window = 1
-  "taglistのウインドウだけならVimを閉じる
-  let Tlist_Exit_OnlyWindow = 1
-  "\lでtaglistウインドウを開いたり閉じたり出来るショートカット
-  map <silent> <leader>l :TlistToggle<CR>
-"キーを押す回数で挿入文字が変わる
-NeoBundle 'kana/vim-smartchr'
-  inoremap <buffer> <expr> <S-=> smartchr#loop(' + ', '+')
-  inoremap <buffer> <expr> - smartchr#loop(' - ', '-')
-  inoremap <buffer> <expr> , smartchr#loop(', ', ',')
-  inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
-"vimを開きながらディレクトリをツリー表示
-NeoBundle 'scrooloose/nerdtree'
-  let NERDTreeShowHidden  =  1
-  nnoremap <silent> <C-e> :NERDTreeToggle<CR>
-call neobundle#end()
-"未インストールのプラグインがある場合、インストールするかどうかを尋ねる
-"NeoBundleCheck
+  call dein#add('Townk/vim-autoclose') " カッコを自動で閉じる
+  call dein#add('Shougo/unite.vim') " ファイル操作とか
+  call dein#add('Shougo/neocomplete.vim') " 補完
+  call dein#add('Shougo/neosnippet.vim') " スニペット
+  call dein#add('Shougo/neosnippet-snippets') " スニペット
+  call dein#add('thinca/vim-quickrun')
+
+  call dein#end()
+  call dein#save_state()
+endif
+" 未インストールのプラグインをインストール
+if dein#check_install()
+  call dein#install()
+endif
+
+filetype plugin indent on
+
 
 "シンタックスハイライト
-syntax on
+syntax enable
+

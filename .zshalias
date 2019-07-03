@@ -1,4 +1,5 @@
 # alias
+# alias python='python3'
 ## ページャーを使いやすくする。
 ### grep -r def *.rb L -> grep -r def *.rb |& lv
 alias -g L="|& $PAGER"
